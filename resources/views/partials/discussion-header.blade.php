@@ -1,9 +1,9 @@
 <div class="card-header">
     <div class="d-flex justify-content-between">
         <div>
-            <img src="{{Gravatar::src($discussion->user->email)}}" style="width:40px;height:40px;border-radius:100%" class="author_image">
+            <img src="{{Gravatar::src($discussion->author->email)}}" style="width:40px;height:40px;border-radius:100%" class="author_image">
             <span class="author_name ml-2 font-weight-bold">
-              {{$discussion->user->name}}
+              {{$discussion->author->name}}
             </span>
         </div>
         <div>

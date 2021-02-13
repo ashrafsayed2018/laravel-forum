@@ -5,6 +5,7 @@ namespace LaravelForum\Http\Controllers;
 use Illuminate\Http\Request;
 use LaravelForum\Discussion;
 use LaravelForum\Http\Requests\CreateReplyRequest;
+use LaravelForum\Notifications\NewReplyAdded;
 
 class ReplyController extends Controller
 {
@@ -41,6 +42,9 @@ class ReplyController extends Controller
           'content' => $request->content,
           'discussion_id' => $discussion->id
         ]);
+
+        // send notification to the author of the discussion that new reply is added
+        $discussion->author->notify(new NewReplyAdded($discussion));
 
         $request->session()->flash('success', "Your Reply is Added ");
 

@@ -12,8 +12,8 @@ class Discussion extends Model
 
     // relationship between the user and the discussion
 
-    public function user() {
-        return $this->belongsTo(User::class);
+    public function author() {
+        return $this->belongsTo(User::class,'user_id');
     }
 
     // relationship with replies
@@ -25,5 +25,20 @@ class Discussion extends Model
 
     public function getRouteKeyName() {
         return 'slug';
+    }
+
+    // method to check if the discussion has best reply
+
+    public function bestReply() {
+        return $this->belongsTo(Reply::class,'reply_id');
+    }
+
+    public function markAsBestReply(Reply $reply) {
+
+        $this->update([
+            'reply_id' => $reply->id
+        ]);
+
+        return redirect()->back();
     }
 }
