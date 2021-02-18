@@ -36,9 +36,10 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @auth
+
                         <!-- Left Side Of Navbar for notifications  -->
                          <ul class="navbar-nav mr-auto">
+                            @auth
                             <li class="nav-item">
                                <span class="badge badge-info">
                                    <a href="{{ route('users.notifications') }}" class="nav-link" title="{{ auth()->user()->unreadNotifications->count() }} unread notifications" style="color: #fff">
@@ -47,9 +48,12 @@
 
                                </span>
                             </li>
+                            @endauth
+                            <li class="nav-item"><a href="{{ route('discussions.index') }}" class="nav-link">Discussion</a></li>
                         </ul>
 
-                    @endauth
+
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -109,7 +113,7 @@
                         <ul class="list-group">
                                 @foreach ($channels as $channel)
                                 <li class="list-group-item">
-                                    {{$channel->name}}
+                                    <a href="{{ route('discussions.index')}}?channel={{$channel->slug }}">{{$channel->name}}</a>
                                 </li>
                                 @endforeach
                             </ul>

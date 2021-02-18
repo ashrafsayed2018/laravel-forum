@@ -8,13 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use LaravelForum\Discussion;
 
-class NewReplyAdded extends Notification implements ShouldQueue
+class ReplyMarkedAsBestReply extends Notification implements ShouldQueue
 {
     use Queueable;
-    /**
-     * the reply discussion
-     * @var discussion
-    */
     public $discussion;
 
     /**
@@ -24,6 +20,7 @@ class NewReplyAdded extends Notification implements ShouldQueue
      */
     public function __construct(Discussion $discussion)
     {
+        //
 
         $this->discussion = $discussion;
     }
@@ -39,7 +36,7 @@ class NewReplyAdded extends Notification implements ShouldQueue
         return ['mail','database'];
     }
 
-    /**ap
+    /**
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
@@ -48,12 +45,10 @@ class NewReplyAdded extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('تم اضافة رد جديد على مقالك')
-                    ->action('عرض المقال', route('discussions.show',$this->discussion->slug))
-                    ->line('شكرا لاستخدامك التطبيق  ');
+                    ->line('Your Reply Was Marked As best Reply .')
+                    ->action('View Discussion', route('discussions.show',$this->discussion->slug))
+                    ->line('Thank you for using our application!');
     }
-
-
 
     /**
      * Get the array representation of the notification.

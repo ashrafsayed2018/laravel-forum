@@ -44,7 +44,10 @@ class ReplyController extends Controller
         ]);
 
         // send notification to the author of the discussion that new reply is added
-        $discussion->author->notify(new NewReplyAdded($discussion));
+        if($discussion->author->id !== auth()->user()->id) {
+
+            $discussion->author->notify(new NewReplyAdded($discussion));
+        }
 
         $request->session()->flash('success', "Your Reply is Added ");
 
